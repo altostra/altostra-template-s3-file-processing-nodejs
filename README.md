@@ -1,16 +1,16 @@
 # S3 File Processing Template - Node.js
 
 This template provides the basis for processing files added to an S3 bucket using the 
-[Claim Check pattern](https://altostra.com/blog/use-case-claim-check-pattern).
+[Claim Check pattern](https://altostra.com/blog/use-case-claim-check-pattern?utm_source=github&utm_medium=template).
 
 ## Before you begin
 
 ### 1. Create a free Altostra account
-Go to [app.altostra.com](https://app.altostra.com) to sign up for a free account.
+Go to [app.altostra.com](https://app.altostra.com?utm_source=github&utm_medium=template) to sign up for a free account.
 
 ### 2. Connect an AWS account
 If you haven't connected an AWS account during sign up, you can do it on the 
-[Cloud Integrations](https://app.altostra.com/team/settings/integrations/cloud) page.
+[Cloud Integrations](https://app.altostra.com/team/settings/integrations/cloud?utm_source=github&utm_medium=template) page.
 
 An AWS account is required to deploy projects.
 
@@ -21,7 +21,7 @@ $ npm install -g @altostra/cli
 
 ## Using the template
 
-1. Go to [projects](https://app.altostra.com/projects).
+1. Go to [projects](https://app.altostra.com/projects?utm_source=github&utm_medium=template).
 1. Click **Create Project**.
 1. Enter a project name and select `s3-file-processing-nodejs` from the list of templates.
 1. Use the **Clone** button on the project page to obtain the Git repository URL after the project is created.
