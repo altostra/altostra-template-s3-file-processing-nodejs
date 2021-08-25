@@ -1,0 +1,20 @@
+{
+  "name": "s3-file-processing",
+  "version": "1.0.0",
+  "description": "Claim Check pattern template with S3 as source.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/altostra/altostra-template-s3-file-processing-nodejs.git"
+  },
+  "scripts": {},
+  "keywords": [],
+  "author": "Altostra, Inc.",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Altostra-Labs/blog-claim-check/issues"
+  },
+  "homepage": "https://github.com/Altostra-Labs/blog-claim-check#readme",
+  "devDependencies": {
+    "aws-sdk": "^2.970.0"
+  }
+}

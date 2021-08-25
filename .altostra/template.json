@@ -1,0 +1,170 @@
+{
+	"name": "S3 File Processing - Node.js",
+	"description": "Claim Check pattern template with S3 as source.",
+	"includes": [
+		"/functions/**",
+		"/*.json",
+		"/.altoignore",
+		"/.gitignore",
+		"/README.md",
+		"/LICENSE"
+	],
+	"excludes": [],
+	"blueprints": [
+		{
+			"version": "2019-10-24",
+			"connections": {
+				"FilesBucket": {
+					"HandleNewFilesFunction": {
+						"type": "connection.file-store.trigger",
+						"eventsFilter": [
+							"create-or-update"
+						],
+						"from": "FilesBucket",
+						"to": "HandleNewFilesFunction"
+					}
+				},
+				"HandleNewFilesFunction": {
+					"JobsQueue": {
+						"type": "connection.resource-access",
+						"accessLevel": "write-only",
+						"from": "HandleNewFilesFunction",
+						"to": "JobsQueue"
+					}
+				},
+				"JobsQueue": {
+					"FailedJobsQueue": {
+						"type": "connection.queue.dead-letter",
+						"retriesCount": 3,
+						"from": "JobsQueue",
+						"to": "FailedJobsQueue"
+					},
+					"ProcessJobFunction": {
+						"type": "connection.trigger",
+						"from": "JobsQueue",
+						"to": "ProcessJobFunction"
+					}
+				},
+				"ProcessJobFunction": {
+					"ResultsTable": {
+						"type": "connection.resource-access",
+						"accessLevel": "read-write",
+						"from": "ProcessJobFunction",
+						"to": "ResultsTable"
+					},
+					"FilesBucket": {
+						"type": "connection.resource-access",
+						"accessLevel": "read-only",
+						"from": "ProcessJobFunction",
+						"to": "FilesBucket"
+					}
+				}
+			},
+			"resources": {
+				"FilesBucket": {
+					"type": "resource.file-store",
+					"name": "files",
+					"accessLevel": "private",
+					"filesSources": [
+						{
+							"path": "files",
+							"type": "files-source.project-dir"
+						}
+					],
+					"id": "FilesBucket"
+				},
+				"JobsQueue": {
+					"type": "resource.message-queue",
+					"name": "jobs",
+					"delay": 0,
+					"retentionPeriod": 345600,
+					"maxMessageSize": 262144,
+					"id": "JobsQueue"
+				},
+				"FailedJobsQueue": {
+					"type": "resource.message-queue",
+					"name": "failed-jobs",
+					"delay": 0,
+					"retentionPeriod": 345600,
+					"maxMessageSize": 262144,
+					"id": "FailedJobsQueue"
+				},
+				"ResultsTable": {
+					"type": "resource.table",
+					"name": "results",
+					"tableName": "",
+					"key": {
+						"hash": {
+							"type": "STRING",
+							"name": "pk"
+						}
+					},
+					"aws": {
+						"billingModel": "PAY_PER_REQUEST"
+					},
+					"id": "ResultsTable"
+				},
+				"HandleNewFilesFunction": {
+					"type": "resource.compute.function",
+					"name": "handle-new-file",
+					"entryPoint": "functions/handle-new-file.handler",
+					"memory": 512,
+					"runtime": "nodejs14.x",
+					"timeout": 6,
+					"id": "HandleNewFilesFunction",
+					"layers": []
+				},
+				"ProcessJobFunction": {
+					"type": "resource.compute.function",
+					"name": "process-job",
+					"entryPoint": "functions/process-job.handler",
+					"memory": 512,
+					"runtime": "nodejs14.x",
+					"timeout": 30,
+					"id": "ProcessJobFunction",
+					"layers": []
+				}
+			},
+			"metadata": {
+				"designer": {
+					"resourcePositions": {
+						"FilesBucket": {
+							"x": 30,
+							"y": 400,
+							"z": 0
+						},
+						"JobsQueue": {
+							"x": 530,
+							"y": 500,
+							"z": 0
+						},
+						"FailedJobsQueue": {
+							"x": 780,
+							"y": 600,
+							"z": 0
+						},
+						"ResultsTable": {
+							"x": 1000,
+							"y": 500,
+							"z": 0
+						},
+						"HandleNewFilesFunction": {
+							"x": 280,
+							"y": 500,
+							"z": 0
+						},
+						"ProcessJobFunction": {
+							"x": 780,
+							"y": 400,
+							"z": 0
+						}
+					}
+				}
+			},
+			"id": "s3-file-processing-template-nodejs",
+			"name": "S3 File Processing - Node.js",
+			"unsafe": false
+		}
+	],
+	"type": "altostra"
+}
