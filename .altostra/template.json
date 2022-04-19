@@ -1,4 +1,5 @@
 {
+	"type": "altostra",
 	"name": "S3 File Processing - Node.js",
 	"description": "Claim Check pattern template with S3 as source.",
 	"includes": [
@@ -165,6 +166,5 @@
 			"name": "S3 File Processing - Node.js",
 			"unsafe": false
 		}
-	],
-	"type": "altostra"
+	]
 }
