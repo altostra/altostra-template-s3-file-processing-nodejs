@@ -110,7 +110,7 @@
 					"name": "handle-new-file",
 					"entryPoint": "functions/handle-new-file.handler",
 					"memory": 512,
-					"runtime": "nodejs14.x",
+					"runtime": "nodejs16.x",
 					"timeout": 6,
 					"id": "HandleNewFilesFunction",
 					"layers": []
@@ -120,7 +120,7 @@
 					"name": "process-job",
 					"entryPoint": "functions/process-job.handler",
 					"memory": 512,
-					"runtime": "nodejs14.x",
+					"runtime": "nodejs16.x",
 					"timeout": 30,
 					"id": "ProcessJobFunction",
 					"layers": []
